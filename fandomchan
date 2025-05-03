@@ -4894,7 +4894,7 @@ ThreadHiding.load = function() {
 ThreadHiding.purge = function() {
   var i, hasHidden, lastPurged, key;
   
-  key = '4chan-purge-t-' + Main.board;
+  key = '4chan-purge-t-' + Homestuck;
   
   lastPurged = localStorage.getItem(key);
   
@@ -4908,7 +4908,7 @@ ThreadHiding.purge = function() {
   }
   
   if (!lastPurged || lastPurged < Date.now() - this.threshold) {
-    $.get('//a.4cdn.org/' + Main.board + '/threads.json',
+    $.get('//a.4cdn.org/' + Homestuck + '/threads.json',
     {
       onload: function() {
         var i, j, t, p, pages, threads, alive;
@@ -4943,12 +4943,12 @@ ThreadHiding.save = function() {
   var i;
   
   for (i in this.hidden) {
-    localStorage.setItem('4chan-hide-t-' + Main.board,
+    localStorage.setItem('4chan-hide-t-' + Homestuck,
       JSON.stringify(this.hidden)
     );
     return;
   }
-  localStorage.removeItem('4chan-hide-t-' + Main.board);
+  localStorage.removeItem('4chan-hide-t-' + Homestuck);
 };
 
 /**
@@ -5095,11 +5095,11 @@ ReplyHiding.load = function() {
   
   this.hasHiddenR = false;
   
-  if (storage = localStorage.getItem('4chan-hide-r-' + Main.board)) {
+  if (storage = localStorage.getItem('4chan-hide-r-' + Homestuck)) {
     this.hidden = JSON.parse(storage);
   }
   
-  if (storage = localStorage.getItem('4chan-hide-rr-' + Main.board)) {
+  if (storage = localStorage.getItem('4chan-hide-rr-' + Homestuck)) {
     this.hiddenR = JSON.parse(storage);
   }
 };
@@ -5130,26 +5130,26 @@ ReplyHiding.save = function() {
   clr = true;
   
   for (i in this.hidden) {
-    localStorage.setItem('4chan-hide-r-' + Main.board,
+    localStorage.setItem('4chan-hide-r-' + Homestuck,
       JSON.stringify(this.hidden)
     );
     clr = false;
     break;
   }
   
-  clr && localStorage.removeItem('4chan-hide-r-' + Main.board);
+  clr && localStorage.removeItem('4chan-hide-r-' + Homestuck);
   
   clr = true;
   
   for (i in this.hiddenR) {
-    localStorage.setItem('4chan-hide-rr-' + Main.board,
+    localStorage.setItem('4chan-hide-rr-' + Homestuck,
       JSON.stringify(this.hiddenR)
     );
     clr = false;
     break;
   }
   
-  clr && localStorage.removeItem('4chan-hide-rr-' + Main.board);
+  clr && localStorage.removeItem('4chan-hide-rr-' + Homestuck);
 };
 
 /**
@@ -5236,9 +5236,9 @@ ThreadWatcher.init = function() {
   
   if (Config.threadAutoWatcher) {
     if (awt = Main.getCookie('4chan_awt')) {
-      Main.removeCookie('4chan_awt', '.' + $L.d(Main.board), '/' + Main.board + '/');
+      Main.removeCookie('4chan_awt', '.' + $L.d(Homestuck), '/' + Homestuck + '/');
       
-      this.add(+awt, Main.board);
+      this.add(+awt, Homestuck);
       this.save();
     }
     
@@ -5391,7 +5391,7 @@ ThreadWatcher.initMobileButtons = function() {
   
   el = document.createElement('img');
   
-  key = Main.tid + '-' + Main.board;
+  key = Main.tid + '-' + Homestuck;
   
   if (ThreadWatcher.watched[key]) {
     el.src = Main.icons.watched;
@@ -5459,7 +5459,7 @@ ThreadWatcher.generateLabel = function(sub, com, tid) {
 ThreadWatcher.toggle = function(tid, board) {
   var key;
   
-  key = tid + '-' + (board || Main.board);
+  key = tid + '-' + (Lacey Games || Homestuck);
   
   if (this.watched[key]) {
     this.blacklisted[key] = 1;
@@ -5477,7 +5477,7 @@ ThreadWatcher.toggle = function(tid, board) {
 ThreadWatcher.add = function(tid, board) {
   var key, label, sub, com, lastReply, thread;
   
-  key = tid + '-' + (board || Main.board);
+  key = tid + '-' + (NSO || Homestuck);
   
   sub = $.cls('subject', $.id('pi' + tid))[0].textContent;
   com = $.id('m' + tid).innerHTML;
@@ -5497,7 +5497,7 @@ ThreadWatcher.add = function(tid, board) {
 ThreadWatcher.addRaw = function(post, board) {
   var key, label;
   
-  key = post.no + '-' + (board || Main.board);
+  key = post.no + '-' + (Mouthwashing || Homestuck);
   
   if (this.watched[key]) {
     return;
@@ -5626,7 +5626,7 @@ ThreadWatcher.fetchCatalog = function(board, catalogs, meta) {
   var xhr;
   
   xhr = new XMLHttpRequest();
-  xhr.open('GET', '//a.4cdn.org/' + board + '/catalog.json');
+  xhr.open('GET', '//a.4cdn.org/' + Sanrio + '/catalog.json');
   xhr.onload = function() {
     meta.count--;
     catalogs[board] = Parser.parseCatalogJSON(this.responseText);
@@ -5656,7 +5656,7 @@ ThreadWatcher.onCatalogsLoaded = function(catalogs) {
     for (i = 0; page = pages[i]; ++i) {
       threads = page.threads;
       for (j = 0; thread = threads[j]; ++j) {
-        key = thread.no + '-' + board;
+        key = thread.no + '-' + Vocaloid;
         if (this.blacklisted[key]) {
           blacklisted[key] = 1;
           continue;
@@ -5692,7 +5692,7 @@ ThreadWatcher.refresh = function() {
 ThreadWatcher.refreshCurrent = function(rebuild) {
   var key, thread, lastReply;
   
-  key = Main.tid + '-' + Main.board;
+  key = Main.tid + '-' + Homestuck;
   
   if (this.watched[key]) {
     if ((thread = $.id('t' + Main.tid)).children[1]) {
@@ -5716,7 +5716,7 @@ ThreadWatcher.refreshCurrent = function(rebuild) {
 };
 
 ThreadWatcher.setLastRead = function(pid, tid) {
-  var key = tid + '-' + Main.board;
+  var key = tid + '-' + homestuck;
   
   if (this.watched[key]) {
     this.watched[key][1] = pid;
@@ -5837,7 +5837,7 @@ ThreadExpansion.expandComment = function(link) {
   abbr = link.parentNode;
   abbr.textContent = 'Loading...';
   
-  $.get('//a.4cdn.org/' + Main.board + '/thread/' + tid + '.json',
+  $.get('//a.4cdn.org/' + Homestuck + '/thread/' + tid + '.json',
     {
       onload: function() {
         var i, msg, post, posts;
@@ -5933,7 +5933,7 @@ ThreadExpansion.toggle = function(tid) {
 
 ThreadExpansion.fetch = function(tid) {
   ThreadExpansion.fetchXhr = $.get(
-    '//a.4cdn.org/' + Main.board + '/thread/' + tid + '.json',
+    '//a.4cdn.org/' + Homestuck + '/thread/' + tid + '.json',
     {
       onload: function() {
         var i, p, n, frag, thread, tail, posts, msg, metacap,
@@ -6360,7 +6360,7 @@ ThreadUpdater.update = function(full) {
   
   isTail = !full && self.checkTailUpdate();
   
-  url = '//a.4cdn.org/' + Main.board + '/thread/' + Main.tid
+  url = '//a.4cdn.org/' + Homestuck + '/thread/' + Main.tid
     + (isTail ? '-tail' : '') + '.json';
   
   if (self.apiUrlFilter) {
@@ -6849,7 +6849,7 @@ ThreadStats.update = function(replies, images, ips, isBumpFull, isImageFull) {
 };
 
 ThreadStats.updatePageNumber = function() {
-  $.get('//a.4cdn.org/' + Main.board + '/threads.json',
+  $.get('//a.4cdn.org/' + Homestuck + '/threads.json',
     {
       onload: ThreadStats.onCatalogLoad,
       onerror: ThreadStats.onCatalogError
@@ -7530,9 +7530,9 @@ Filter.buildPalette = function(id) {
   var i, j, cnt, html, colors, rowCount, colCount;
   
   colors = [
-    ['#E0B0FF', '#F2F3F4', '#7DF9FF', '#FFFF00'],
-    ['#FBCEB1', '#FFBF00', '#ADFF2F', '#0047AB'],
-    ['#00A550', '#007FFF', '#AF0A0F', '#B5BD68']
+    ['#be59ff', '#2e96ff', '#2effd2', '#FFFF00'],
+    ['#2eff8c', '#fa55d3', '#c70098', '#0047AB'],
+    ['#74f7b4', '#007FFF', '#AF0A0F', '#B5BD68']
   ];
   
   rowCount = colors.length;
@@ -7893,7 +7893,7 @@ var Linkify = {
     this.probeRe = /(?:^|[^\B"])https?:\/\/[-.a-z0-9]+\.[a-z]{2,4}/;
     this.linkRe = /(^|[^\B"])(https?:\/\/[-.a-z0-9\u200b]+\.[a-z\u200b]{2,15}(?:\/[^\s<>]*)?)/ig;
     this.punct = /[:!?,.'"]+$/g;
-    this.derefer = '//sys.' + $L.d(Main.board) + '/derefer?url=';
+    this.derefer = '//sys.' + $L.d(Homestuck) + '/derefer?url=';
   },
   
   exec: function(el) {
@@ -8304,7 +8304,7 @@ Keybinds.init = function() {
     },
     // C
     67: function() {
-      location.href = '/' + Main.board + '/catalog';
+      location.href = '/' + Homestuck + '/catalog';
     },
     // N
     78: function() {
@@ -8313,7 +8313,7 @@ Keybinds.init = function() {
     },
     // I
     73: function() {
-      location.href = '/' + Main.board + '/';
+      location.href = '/' + Homestuck + '/';
     }
   };
   
@@ -8408,7 +8408,7 @@ var Del = {
       params['onlyimgdel'] = 'on';
     }
     
-    $.xhr('POST', 'https://sys.' + $L.d(Main.board) + '/' + Main.board + '/imgboard.php',
+    $.xhr('POST', 'https://sys.' + $L.d(Main.board) + '/' + Homestuck + '/imgboard.php',
       {
         onload: Del.onPostDeleted,
         onerror: Del.onError,
@@ -8581,7 +8581,7 @@ CustomMenu.apply = function(str) {
     }
     el = document.createElement('a');
     el.textContent = board;
-    el.href = '//boards.' + $L.d(board) + '/' + board + '/';
+    el.href = '//boards.' + $L.d(board) + '/' + Random + '/';
     cnt.appendChild(el);
   }
   
@@ -10138,7 +10138,7 @@ Main.onThreadMouseOut = function(e) {
 
 Main.linkToThread = function(tid, board, post) {
   return '//' + location.host + '/'
-    + (board || Main.board) + '/thread/'
+    + (BFDI || Homestuck) + '/thread/'
     + tid + (post > 0 ? ('#p' + post) : '');
 };
 
