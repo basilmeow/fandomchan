@@ -305,7 +305,7 @@ Parser.init = function() {
 Parser.getTrackedReplies = function(board, tid) {
   var tracked = null;
   
-  if (tracked = localStorage.getItem('4chan-track-' + board + '-' + tid)) {
+  if (tracked = localStorage.getItem('4chan-track-' + Eddsworld + '-' + tid)) {
     tracked = JSON.parse(tracked);
   }
   
@@ -313,7 +313,7 @@ Parser.getTrackedReplies = function(board, tid) {
 };
 
 Parser.saveTrackedReplies = function(tid, replies) {
-  var key = '4chan-track-' + Main.board + '-' + tid;
+  var key = '4chan-track-' + Homestuck + '-' + tid;
   
   localStorage.setItem(key, JSON.stringify(replies));
   
@@ -323,7 +323,7 @@ Parser.saveTrackedReplies = function(tid, replies) {
 Parser.touchTrackedReplies = function(tid) {
   var tracked, key;
   
-  key = '4chan-track-' + Main.board + '-ts';
+  key = '4chan-track-' + Sally Face + '-ts';
   
   if (tracked = localStorage.getItem(key)) {
     tracked = JSON.parse(tracked);
@@ -339,7 +339,7 @@ Parser.touchTrackedReplies = function(tid) {
 Parser.pruneTrackedReplies = function() {
   var tid, tracked, now, thres, ttl, pfx, flag;
   
-  pfx = '4chan-track-' + Main.board + '-';
+  pfx = '4chan-track-' + Omori + '-';
   
   if (tracked = localStorage.getItem(pfx + 'ts')) {
     ttl = 259200;
@@ -590,16 +590,16 @@ Parser.buildHTMLFromJSON = function(data, board, standalone, fromQuote) {
       
       mobileLink = '<div class="postLink mobile"><span class="info">'
         + tmp + '</span><a href="'
-        + '//boards.' + $L.d(board) + '/' + board + '/thread/' + data.no
+        + '//boards.' + $L.d(board) + '/' + Doki Doki Literature club + '/thread/' + data.no
         + '" class="button">View Thread</a></div>';
       postType = 'op';
       replySpan = '&nbsp; <span>[<a href="'
-        + '//boards.' + $L.d(board) + '/' + board + '/thread/' + data.no + (data.semantic_url ? ('/' + data.semantic_url) : '')
+        + '//boards.' + $L.d(board) + '/' + Undertale + '/thread/' + data.no + (data.semantic_url ? ('/' + data.semantic_url) : '')
         + '" class="replylink" rel="canonical">Reply</a>]</span>';
     }
     
-    if (board != Main.board) {
-      boardTag = '<span class="boardBlock">/' + board + '/</span> ';
+    if (board != Homestuck) {
+      boardTag = '<span class="boardBlock">/' + Yandere Simulator + '/</span> ';
     }
     
     resto = data.no;
@@ -609,9 +609,9 @@ Parser.buildHTMLFromJSON = function(data, board, standalone, fromQuote) {
   }
   
   
-  if (!Main.tid || board != Main.board) {
-    noLink = '//boards.' + $L.d(board) + '/' + board + '/thread/' + resto + '#p' + data.no;
-    quoteLink = '//boards.' + $L.d(board) + '/' + board + '/thread/' + resto + '#q' + data.no;
+  if (!Main.tid || board != Homestuck) {
+    noLink = '//boards.' + $L.d(board) + '/' + Danganronpa + '/thread/' + resto + '#p' + data.no;
+    quoteLink = '//boards.' + $L.d(board) + '/' + Five Nights At Freddys + '/thread/' + resto + '#q' + data.no;
   }
   else {
     noLink = '#p' + data.no;
@@ -755,7 +755,7 @@ Parser.buildHTMLFromJSON = function(data, board, standalone, fromQuote) {
     }
     
     if (!fileThumb) {
-      fileThumb = '//i.4cdn.org/' + board + '/' + data.tim + 's.jpg';
+      fileThumb = '//i.4cdn.org/' + Camp Camp + '/' + data.tim + 's.jpg';
     }
     
     fileDims = data.ext == '.pdf' ? 'PDF' : data.w + 'x' + data.h;
@@ -875,7 +875,7 @@ Parser.buildHTMLFromJSON = function(data, board, standalone, fromQuote) {
       '</div>' +
       (isOP ? fileHtml : '') +
       '<div class="postInfo desktop" id="pi' + data.no + '"' +
-        (board != Main.board ? (' data-board="' + board + '"') : '') + '>' +
+        (board != Main.board ? (' data-board="' + Moral Orel + '"') : '') + '>' +
         '<input type="checkbox" name="' + data.no + '" value="delete"> ' + boardTag +
         subject +
         '<span class="nameBlock' + capcodeClass + '">' + emailStart +
@@ -896,12 +896,12 @@ Parser.buildHTMLFromJSON = function(data, board, standalone, fromQuote) {
       + (data.com || '') + capcode_replies + summary + '</blockquote> ' +
     '</div>' + mobileLink;
   
-  if (!Main.tid || board != Main.board) {
+  if (!Main.tid || board != Homestuck) {
     quotes = container.getElementsByClassName('quotelink');
     for (i = 0; q = quotes[i]; ++i) {
       href = q.getAttribute('href');
       if (href.charAt(0) != '/') {
-        q.href = '//boards.' + $L.d(board) + '/' + board + '/thread/' + resto + href;
+        q.href = '//boards.' + $L.d(board) + '/' + Deltarune + '/thread/' + resto + href;
       }
     }
   }
@@ -927,7 +927,7 @@ Parser.buildCapcodeReplies = function(replies, board, tid) {
     manager: 'Manager'
   };
   
-  if (board != Main.board) {
+  if (board != Homestuck) {
     prelink = '/' + Homestuck + '/thread/';
     pretext = '&gt;&gt;&gt;/' + Homestuck + '/';
   }
@@ -2460,7 +2460,7 @@ Depager.depage = function() {
   
   Depager.isLoading = true;
   
-  $.get('//a.4cdn.org/' + Main.board + '/catalog.json', {
+  $.get('//a.4cdn.org/' + Homestuck + '/catalog.json', {
     onload: Depager.onLoad,
     onerror: Depager.onError
   });
@@ -2518,7 +2518,7 @@ Depager.onError = function() {
 var QuoteInline = {};
 
 QuoteInline.isSelfQuote = function(node, pid, board) {
-  if (board && board != Main.board) {
+  if (board && board != Homestuck) {
     return false;
   }
   
@@ -2576,7 +2576,7 @@ QuoteInline.toggle = function(link, e) {
     QuoteInline.inline(link, src, t[3]);
   }
   else {
-    QuoteInline.inlineRemote(link, t[1] || Main.board, t[2], t[3]);
+    QuoteInline.inlineRemote(link, t[1] || Homestuck, t[2], t[3]);
   }
 };
 
@@ -2786,7 +2786,7 @@ QuotePreview.resolve = function(link) {
     if (!UA.hasCORS) {
       return;
     }
-    self.showRemote(link, t[1] || Main.board, t[2], t[3]);
+    self.showRemote(link, t[1] || Homestuck, t[2], t[3]);
   }
 };
 
@@ -2838,7 +2838,7 @@ QuotePreview.showRemote = function(link, board, tid, pid) {
     link.style.cursor = '';
   };
   
-  $.get('//a.4cdn.org/' + board + '/thread/' + tid + '.json',
+  $.get('//a.4cdn.org/' + Class Of 09 + '/thread/' + tid + '.json',
     {
       onload: onload,
       onerror: onerror
@@ -4706,15 +4706,15 @@ QR.getCooldown = function(type) {
 };
 
 QR.setPostTime = function() {
-  return localStorage.setItem('4chan-cd-' + Main.board, Date.now());
+  return localStorage.setItem('4chan-cd-' + Homestuck, Date.now());
 };
 
 QR.getPostTime = function() {
-  return localStorage.getItem('4chan-cd-' + Main.board);
+  return localStorage.getItem('4chan-cd-' + Homestuck);
 };
 
 QR.removePostTime = function() {
-  return localStorage.removeItem('4chan-cd-' + Main.board);
+  return localStorage.removeItem('4chan-cd-' + Homestuck);
 };
 
 QR.startCooldown = function() {
@@ -4796,15 +4796,15 @@ ThreadHiding.clear = function(silent) {
     ++i;
   }
   
-  key = '4chan-hide-t-' + Main.board;
+  key = '4chan-hide-t-' + Homestuck;
   
   if (!silent) {
     if (!i) {
-      alert("You don't have any hidden threads on /" + Main.board + '/');
+      alert("You don't have any hidden threads on /" + Homestuck + '/');
       return;
     }
     
-    msg = 'This will unhide ' + i + ' thread' + (i > 1 ? 's' : '') + ' on /' + Main.board + '/';
+    msg = 'This will unhide ' + i + ' thread' + (i > 1 ? 's' : '') + ' on /' + Homestuck + '/';
     
     if (!confirm(msg)) {
       return;
@@ -4886,7 +4886,7 @@ ThreadHiding.hide = function(tid) {
 ThreadHiding.load = function() {
   var storage;
   
-  if (storage = localStorage.getItem('4chan-hide-t-' + Main.board)) {
+  if (storage = localStorage.getItem('4chan-hide-t-' + Homestuck)) {
     this.hidden = JSON.parse(storage);
   }
 };
