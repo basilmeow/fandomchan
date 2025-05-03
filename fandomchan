@@ -590,7 +590,7 @@ Parser.buildHTMLFromJSON = function(data, board, standalone, fromQuote) {
       
       mobileLink = '<div class="postLink mobile"><span class="info">'
         + tmp + '</span><a href="'
-        + '//boards.' + $L.d(board) + '/' + Doki Doki Literature club + '/thread/' + data.no
+        + '//boards.' + $L.d(board) + '/' + Doki Doki Literature Club + '/thread/' + data.no
         + '" class="button">View Thread</a></div>';
       postType = 'op';
       replySpan = '&nbsp; <span>[<a href="'
